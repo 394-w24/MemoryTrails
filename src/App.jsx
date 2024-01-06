@@ -1,45 +1,27 @@
-import { useState } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-const App = () => {
-  const [count, setCount] = useState(0);
+const Banner = ({ title }) => (
+  <h1>{ title }</h1>
+);
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button onClick={() => setCount(count => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test hot module replacement (HMR).
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  );
+const mainpage = {
+  "title": 'memoryTrail'
 };
+
+const Trip = ({ title, duration, location, id }) => (
+  <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="..."/>
+    <div class="card-body">
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+  </div>
+);
+
+const App = () =>  (
+  <div className="container">
+    <Banner title={ mainpage.title } />
+  </div>
+);
 
 export default App;
