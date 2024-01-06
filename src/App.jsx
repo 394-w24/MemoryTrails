@@ -1,43 +1,28 @@
 import React from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Blogs from "./pages/Blogs";
+import Contact from "./pages/Contact";
+import NoPage from "./pages/NoPage";
 
-const Banner = ({ title }) => (
-  <h1>{ title }</h1>
-);
-
-const mainpage = {
-  "title": 'memoryTrail'
-};
-
-const firstTrip = {
-  "name": "Wisconsin",
-  "members" :[], 
-  "locations": [
-    {
-      "location": "Madison", 
-      "date": " ", 
-      "photos": [
-        "https://images.inc.com/uploaded_files/image/1920x1080/getty_483517958_368760.jpg"
-      ], 
-      "caption": "I love wisconsin"
-    }
-  ]
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="blogs" element={<Blogs />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-const Trip = ({trip}) => (
-  <div className="card" style={{width: '18rem'}}>
-    <img src={trip.locations[0].photos[0]} className="card-img-top" alt="The first photo"/>
-    <div className="card-body">
-      <title>{trip.name}</title>
-    </div>
-  </div>
-);
-
-const App = () =>  (
-  <div className="container">
-    <Banner title={ mainpage.title } />
-    <Trip trip = {firstTrip}/>
-  </div>
-);
-
-export default App;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
