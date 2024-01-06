@@ -9,11 +9,26 @@ const mainpage = {
   "title": 'memoryTrail'
 };
 
-const Trip = ({ title, duration, location, id }) => (
-  <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="..."/>
-    <div class="card-body">
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+const firstTrip = {
+  "name": "Wisconsin",
+  "members" :[], 
+  "locations": [
+    {
+      "location": "Madison", 
+      "date": " ", 
+      "photos": [
+        "https://images.inc.com/uploaded_files/image/1920x1080/getty_483517958_368760.jpg"
+      ], 
+      "caption": "I love wisconsin"
+    }
+  ]
+}
+
+const Trip = ({trip}) => (
+  <div className="card" style={{width: '18rem'}}>
+    <img src={trip.locations[0].photos[0]} className="card-img-top" alt="The first photo"/>
+    <div className="card-body">
+      <title>{trip.name}</title>
     </div>
   </div>
 );
@@ -21,6 +36,7 @@ const Trip = ({ title, duration, location, id }) => (
 const App = () =>  (
   <div className="container">
     <Banner title={ mainpage.title } />
+    <Trip trip = {firstTrip}/>
   </div>
 );
 
