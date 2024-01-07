@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 
 
 const Banner = ({ title }) => (
@@ -36,11 +35,13 @@ const Trip = ({trip}) => (
   </div>
 );
 
-const homepage = () =>  (
+const Homepage = () =>  {
+  return (
   <div className="container">
     <Banner title={ mainpage.title } />
     <Trip trip = {firstTrip}/>
   </div>
 );
+};
 
-export default homepage;
+export default Homepage;
