@@ -1,0 +1,38 @@
+  .banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f3f3f3; 
+    width: 100vw;
+  }
+  
+  .banner-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 50px; 
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+ 
+  .signin-button {
+    background-color: #3c3f42; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

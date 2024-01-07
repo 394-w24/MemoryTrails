@@ -1,13 +1,15 @@
 import React from 'react';
+import Trip from "./Trip.jsx"
+import Banner from "./Banner.jsx"
+import MapPage from "./MapPage.jsx"
 
+// const Banner = ({ title }) => (
+//   <h1>{ title }</h1>
+// );
 
-const Banner = ({ title }) => (
-  <h1>{ title }</h1>
-);
-
-const mainpage = {
-  "title": 'memoryTrail'
-};
+// const mainpage = {
+//   "title": 'memoryTrail'
+// };
 
 const firstTrip = {
   "name": "Wisconsin",
@@ -25,20 +27,12 @@ const firstTrip = {
   ]
 }
 
-const Trip = ({trip}) => (
-  <div className="card" style={{width: '18rem'}} onClick={console.log("clicked")}>
-    <img src={trip.locations[0].photos[0]} className="card-img-top" alt="The first photo"/>
-    <div className="card-body">
-      <div className = "card-title">{trip.name}</div>
-      <div className = "card-footer"> start date: {trip.locations[0].date}, trip duration: {trip.duration} days </div>
-    </div>
-  </div>
-);
 
 const Homepage = () =>  {
   return (
-  <div className="container">
-    <Banner title={ mainpage.title } />
+  <div >
+    <Banner />
+    <MapPage />
     <Trip trip = {firstTrip}/>
   </div>
 );
