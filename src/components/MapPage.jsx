@@ -1,7 +1,8 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Link } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
-import Trip from "./Trip.jsx"
+import Trip from "./TripCard.jsx"
 
 
 const MapPage = () => {
@@ -32,6 +33,9 @@ const MapPage = () => {
         <Marker position={position}>
         <Popup>
             <Trip trip={firstTrip} />
+            <Link to={"/trip"} style={{ display: 'block', marginTop: '10px' }}>
+              View Trip
+            </Link>
           </Popup>
         </Marker>
       </MapContainer>

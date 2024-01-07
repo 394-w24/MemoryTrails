@@ -1,5 +1,5 @@
 import React from 'react';
-import Trip from "./Trip.jsx"
+import Trip from "./TripCard.jsx"
 import Banner from "./Banner.jsx"
 import MapPage from "./MapPage.jsx"
 
@@ -28,7 +28,7 @@ const firstTrip = {
 }
 
 
-const Homepage = () =>  {
+const HomePage = () =>  {
   return (
   <div >
     <Banner />
@@ -38,4 +38,4 @@ const Homepage = () =>  {
 );
 };
 
-export default Homepage;
+export default HomePage;
