@@ -38,3 +38,8 @@
     margin-right: 10px;
   }
   
+.link-style {
+    margin: 1rem;
+    text-decoration: none;
+    color: black
+  };
