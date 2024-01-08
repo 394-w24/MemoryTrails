@@ -1,0 +1,14 @@
+.wrap {
+    display: flex;
+  }
+  
+.trip-map {
+    flex-basis: 50%;
+}
+  
+.trip-info {
+    flex-basis: 50%;
+    
+    height: 100vh; 
+    overflow: auto;
+}
