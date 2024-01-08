@@ -3,14 +3,6 @@ import Trip from "./TripCard.jsx"
 import Banner from "./Banner.jsx"
 import MapPage from "./MapPage.jsx"
 
-// const Banner = ({ title }) => (
-//   <h1>{ title }</h1>
-// );
-
-// const mainpage = {
-//   "title": 'memoryTrail'
-// };
-
 const firstTrip = {
   "name": "Wisconsin",
   "members" :[],
@@ -33,7 +25,7 @@ const HomePage = () =>  {
   <div >
     <Banner />
     <MapPage />
-    <Trip trip = {firstTrip}/>
+    <Trip trip={firstTrip} simpleView={true}/>
   </div>
 );
 };
