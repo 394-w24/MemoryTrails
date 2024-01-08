@@ -1,6 +1,5 @@
 import React from 'react';
 import Trip from "./TripCard.jsx"
-import Banner from "./Banner.jsx"
 import MapPage from "./MapPage.jsx"
 
 const firstTrip = {
@@ -23,7 +22,6 @@ const firstTrip = {
 const HomePage = () =>  {
   return (
   <div >
-    <Banner />
     <MapPage />
     <Trip trip={firstTrip} simpleView={true}/>
   </div>

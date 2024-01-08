@@ -1,0 +1,51 @@
+{
+  "name": "Road Trip to Wisconsin",
+  "members" : [
+    "Kedar K. Khedekar",
+    "Hrithik L. Gavali",
+    "Ananya Goyal",
+    "Niharika Gopinath Menon",
+    "Manan Malik"
+  ],
+  "locations": [
+    {
+      "location": "Lake Geneva",
+      "date": "12.29.2023",
+      "photos": [
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2FLake_geneva_1.jpg?alt=media&token=72359ab7-e5b7-4ab1-ac13-679a23abbf57",
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2FLake_geneva_2.jpg?alt=media&token=4d090340-704e-459c-910c-8959edc0a8ed"
+      ],
+      "caption": "Took photos while shivering in the chilly breeze next to the lake"
+    },
+    {
+      "location": "Cave of Mounds",
+      "date": "12.29.2023",
+      "photos": [
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2FCave_of_mounds_1.jpg?alt=media&token=fad615bb-b25f-401d-beb7-2807594e0ba0",
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2FCave_of_mounds_2.jpg?alt=media&token=85b5964d-0dd1-4da9-b696-64c2e75321bd",
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2FCave_of_mounds_3.jpg?alt=media&token=0e92e671-02a1-422b-b6d7-2297426b7ff5",
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2FCave_of_mounds_4.jpg?alt=media&token=51e82c59-d3de-4117-8c54-ac1e02fd149f"
+      ],
+      "caption": "Took a guided cave tour and later spent some time playing in the snow at a hill nearby"
+    },
+    {
+      "location": "Madison",
+      "date": "12.29.2023",
+      "photos": [
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2Fmadison_1.jpg?alt=media&token=c7355748-d68f-42f3-b8bc-8a466798de31",
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2Fmadison_2.jpg?alt=media&token=7974c499-b2c0-414b-ad5f-df933e3ad077"
+      ],
+      "caption": "Visited the state capitol building and local shops and gift store"
+    },
+    {
+      "location": "Milwaukee",
+      "date": "12.29.2023",
+      "photos": [
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2Fmilwaukee_1.jpg?alt=media&token=c197c07a-41ac-4dc8-9df9-9e3e0c17d5d4",
+        "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2Fmilwaukee_2.jpg?alt=media&token=f232070a-30ef-46dc-999c-5bea55e0a01a",
+       "https://firebasestorage.googleapis.com/v0/b/memorytrails-4fadd.appspot.com/o/Kedar%2Froad_trip_to_wisconsin%2Fmilwaukee_3.jpg?alt=media&token=180f00d3-81dc-4d1a-8d77-f64bd80da47d"
+      ],
+      "caption": "Had drinks at local brewery and took a walk at Milwaukee riverfront"
+    }
+  ]
+}
