@@ -1,28 +1,18 @@
 import React from 'react';
 import './App.css';
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import TripPage from './TripPage';
 
 const Banner = ({ title }) => (
-  <h1>{ title }</h1>
+  <div>
+    <h1>{ title }</h1>
+    <Link to="/trip">Go to Trip Page</Link>
+  </div>
 );
 
 const mainpage = {
   "title": 'memoryTrail'
 };
-
-const firstTrip = {
-  "name": "Wisconsin",
-  "members" :[], 
-  "locations": [
-    {
-      "location": "Madison", 
-      "date": " ", 
-      "photos": [
-        "https://images.inc.com/uploaded_files/image/1920x1080/getty_483517958_368760.jpg"
-      ], 
-      "caption": "I love wisconsin"
-    }
-  ]
-}
 
 const Trip = ({trip}) => (
   <div className="card" style={{width: '18rem'}}>
@@ -33,11 +23,15 @@ const Trip = ({trip}) => (
   </div>
 );
 
-const App = () =>  (
-  <div className="container">
-    <Banner title={ mainpage.title } />
-    <Trip trip = {firstTrip}/>
-  </div>
-);
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Banner title={ mainpage.title } />} />
+        <Route path="/trip" element={<TripPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;

@@ -1,0 +1,53 @@
+.trip-page {
+    font-family: Arial, sans-serif;
+  }
+  
+  .trip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #282c34;
+    color: white;
+  }
+  
+  .trip-header h1 {
+    margin: 0;
+  }
+  
+  .trip-header nav a {
+    color: #61dafb;
+    text-decoration: none;
+  }
+  
+  .trip-main {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .trip-map {
+    flex: 1;
+  }
+  
+  .trip-details {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .trip-entry {
+    margin-bottom: 2rem;
+  }
+  
+  .trip-entry h2 {
+    margin-top: 0;
+  }
+  
+  .trip-entry img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .trip-image {
+    width: 500px;
+    height: auto;
+  }
