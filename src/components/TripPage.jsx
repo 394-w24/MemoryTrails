@@ -1,8 +1,23 @@
-import React from 'react';
+import React , { useState }  from 'react';
 import tripData from '../../data/data.json';
 import './TripPage.css'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+
+const customIcon = new L.Icon({
+  iconUrl: icon,
+  iconRetinaUrl: iconRetina,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 
 
 const Location = ({ location }) => (
@@ -20,6 +35,15 @@ const Location = ({ location }) => (
 
 const TripPage = () => {
   const position = [43.0722, -89.4008];
+  const [activeLocation, setActiveLocation] = useState(null);
+
+  // Function to scroll to the location info
+  const scrollToLocation = (locationIndex) => {
+    const locationElement = document.getElementById(`location-${locationIndex}`);
+    if (locationElement) {
+      locationElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
   return (
     <div>
       <h2>{tripData.name}</h2>
@@ -33,6 +57,25 @@ const TripPage = () => {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
+            {tripData.locations.map((location, index) => {
+            console.log("location",location); // Log to verify the structure
+            console.log("latitude",location.latitude);
+            return (
+              <Marker
+                key={index}
+                position={[location.latitude, location.longitude]}
+                icon={customIcon}
+                eventHandlers={{
+                  click: () => {
+                    setActiveLocation(index);
+                    scrollToLocation(index);
+                  },
+                }}
+              >
+                <Popup>{location.location}</Popup>
+              </Marker>
+            );
+          })}
           </MapContainer>
         </div>
         <div className="trip-info">
