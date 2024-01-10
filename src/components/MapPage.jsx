@@ -110,18 +110,12 @@ const MapPage = () => {
         <Marker position={[firstTrip.locations[0].latitude, firstTrip.locations[0].longitude]} icon={customIcon}>
           <Popup>
             <Trip trip={firstTrip} />
-            <Link to={"/trip"} style={{ display: "block", marginTop: "10px" }}>
-              View Trip
-            </Link>
           </Popup>
         </Marker>
         {demoTrips.map( demoTrip => 
           <Marker position={[demoTrip.locations[0].latitude, demoTrip.locations[0].longitude]} icon={customIcon}>
             <Popup>
               <Trip trip={demoTrip} />
-              <Link to={"/"} style={{ display: "block", marginTop: "10px" }}>
-                View Trip
-              </Link>
             </Popup>
           </Marker>
 

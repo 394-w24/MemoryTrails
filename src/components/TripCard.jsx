@@ -1,13 +1,25 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import "./TripCard.css";
 
   const Trip = ({ trip, simpleView }) => (
-    <div className="card" style={{ width: '18rem' }} onClick={() => console.log("clicked")}>
+    <div className="card" style={{ width: '18rem' }}>
       <img src={trip.locations[0].photos[0]} className="card-img-top" alt="Trip photo"/>
       <div className="card-body">
         <div className="card-title">{trip.name}</div>
         {!simpleView && (
-          <div className="card-footer"> start date: {trip.locations[0].date}, trip duration: {trip.duration} days </div>
+          <div>
+            <div className="card-footer"> 
+              <div> start date: {trip.locations[0].date} </div> 
+              <br/>
+              <div> trip duration: {trip.duration} days </div>
+            </div>
+            <div>
+              <Link to={"/trip"} style={{ display: "block", marginTop: "10px" }}>
+                View Trip
+              </Link>
+            </div>
+          </div>
         )}
       </div>
     </div>

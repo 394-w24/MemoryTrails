@@ -76,14 +76,13 @@ const demoTrips = [
 
 const HomePage = () =>  {
   return (
-  <div >
-    <div>
+  <div>
+    <div >
       <MapPage />
     </div>
-    <div className = "trip-list">
+    <div className = 'trip-list'>
       <Trip trip={firstTrip} simpleView={true}/>
       {demoTrips.map(trip=><Trip trip={trip} simpleView={true}/>)}
-    
     </div>
   </div>
 );
