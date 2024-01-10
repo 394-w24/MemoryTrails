@@ -1,13 +1,12 @@
-import React , { useState }  from 'react';
-import tripData from '../../data/data.json';
-import './TripPage.css'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
+import React, { useState } from "react";
+import tripData from "../../data/data.json";
+import "./TripPage.css";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 const customIcon = new L.Icon({
   iconUrl: icon,
@@ -16,9 +15,8 @@ const customIcon = new L.Icon({
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
-  shadowSize: [41, 41]
+  shadowSize: [41, 41],
 });
-
 
 const Location = ({ location }) => (
   <div className="location">
@@ -26,7 +24,7 @@ const Location = ({ location }) => (
     <p>{location.date}</p>
     <p>{location.caption}</p>
     <div className="photos">
-      {location.photos.map(photo => (
+      {location.photos.map((photo) => (
         <img key={photo} src={photo} alt={location.location} />
       ))}
     </div>
@@ -39,11 +37,14 @@ const TripPage = () => {
 
   // Function to scroll to the location info
   const scrollToLocation = (locationIndex) => {
-    const locationElement = document.getElementById(`location-${locationIndex}`);
+    const locationElement = document.getElementById(
+      `location-${locationIndex}`
+    );
     if (locationElement) {
-      locationElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+  console.log("Number of locations:", tripData.locations.length);
   return (
     <div>
       <h2>{tripData.name}</h2>
@@ -52,30 +53,36 @@ const TripPage = () => {
       </div>
       <div className="wrap">
         <div className="trip-map">
-          <MapContainer center={position} zoom={14} style={{ height: '100%', width: '100%' }}>
-              <TileLayer
+          <MapContainer
+            center={position}
+            zoom={14}
+            style={{ height: "100%", width: "100%" }}
+          >
+            <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
+            />
             {tripData.locations.map((location, index) => {
-            console.log("location",location); // Log to verify the structure
-            console.log("latitude",location.latitude);
-            return (
-              <Marker
-                key={index}
-                position={[location.latitude, location.longitude]}
-                icon={customIcon}
-                eventHandlers={{
-                  click: () => {
-                    setActiveLocation(index);
-                    scrollToLocation(index);
-                  },
-                }}
-              >
-                <Popup>{location.location}</Popup>
-              </Marker>
-            );
-          })}
+              const key = `${location.latitude}-${location.longitude}`;
+              // console.log("location:", location);
+              // console.log("latitude", location.latitude);
+              // console.log("longitude", location.longitude);
+              return (
+                <Marker
+                  key={key}
+                  position={[parseFloat(location.latitude), parseFloat(location.longitude)]}
+                  icon={customIcon}
+                  eventHandlers={{
+                    click: () => {
+                      setActiveLocation(index);
+                      scrollToLocation(index);
+                    },
+                  }}
+                >
+                  <Popup>{location.location}</Popup>
+                </Marker>
+              );
+            })}
           </MapContainer>
         </div>
         <div className="trip-info">
