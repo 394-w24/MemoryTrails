@@ -4,18 +4,24 @@
 
 .wrap {
     display: flex;
-  }
+    flex-wrap: wrap; 
+    width: 100%; 
+}
+
   
 .trip-map {
     flex-basis: 50%;
-    min-height: 300px;
+    max-width: 50%;
+    /* min-height: 300px; */
+    box-sizing: border-box;
 }
   
 .trip-info {
     flex-basis: 50%;
-    
+    max-width: 50%;
     height: 100vh; 
     overflow: auto;
+    box-sizing: border-box;
 }
 
 .photos img {
@@ -40,13 +46,9 @@
         flex-direction: column;
     }
 
-    .trip-map {
-        order: -1;
-        flex-basis: 100%;
-        min-height: 300px; /* Ensure it's also set for smaller screens */
-    }
     .trip-map, .trip-info {
         flex-basis: 100%;
+        max-width: 100%; /* Take full width on smaller screens */
     }
 }
 
