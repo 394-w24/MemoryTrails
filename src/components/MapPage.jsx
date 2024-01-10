@@ -100,7 +100,7 @@ const MapPage = () => {
     <div>
       <MapContainer
         center={[firstTrip.locations[0].latitude, firstTrip.locations[0].longitude]}
-        zoom={14}
+        zoom={4}
         style={{ height: "500px", width: "100%" }}
       >
         <TileLayer
