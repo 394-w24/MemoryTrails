@@ -12,9 +12,6 @@ const Banner = () => {
               Homepage
         </Link>
       </div>
-      <div className="banner-right">
-        <button className="signin-button">Sign In</button>
-      </div>
     </div>
   );
 };

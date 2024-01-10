@@ -22,7 +22,6 @@ const customIcon = new L.Icon({
 
 
 const MapPage = () => {
-  const position = [43.0722, -89.4008];
   const firstTrip = {
     name: "Wisconsin",
     members: [],
@@ -30,6 +29,8 @@ const MapPage = () => {
     locations: [
       {
         location: "Madison",
+        latitude: 43.0722, 
+        longitide: -89.4008, 
         date: "04/04/2023",
         photos: [
           "https://images.inc.com/uploaded_files/image/1920x1080/getty_483517958_368760.jpg",
@@ -42,7 +43,7 @@ const MapPage = () => {
   return (
     <div>
       <MapContainer
-        center={position}
+        center={[firstTrip.locations[0].latitude, firstTrip.locations[0].longitide]}
         zoom={14}
         style={{ height: "500px", width: "100%" }}
       >
@@ -50,7 +51,7 @@ const MapPage = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <Marker position={position} icon={customIcon}>
+        <Marker position={[firstTrip.locations[0].latitude, firstTrip.locations[0].longitide]} icon={customIcon}>
           <Popup>
             <Trip trip={firstTrip} />
             <Link to={"/trip"} style={{ display: "block", marginTop: "10px" }}>
