@@ -30,7 +30,7 @@ const MapPage = () => {
       {
         location: "Madison",
         latitude: 43.0722, 
-        longitide: -89.4008, 
+        longitude: -89.4008, 
         date: "04/04/2023",
         photos: [
           "https://images.inc.com/uploaded_files/image/1920x1080/getty_483517958_368760.jpg",
@@ -40,10 +40,66 @@ const MapPage = () => {
     ],
   };
 
+  const demoTrips = [
+    {
+      "name": "South Dakota",
+      "members" :[],
+      "duration": 7, 
+      "locations": [
+        {
+          "location": "Keystone", 
+          "latitude" : 43.8803, 
+          "longitude" : -103.4538,
+          "date": "06/24/2023", 
+          "photos": [
+            "https://www.nps.gov/common/uploads/grid_builder/moru/crop16_9/C6C71E83-1DD8-B71B-0B3B2B02603AB440.jpg?width=640&quality=90&mode=crop"
+          ], 
+          "caption": "Mount Rushmore is so cool!"
+        }
+      ]
+    } , 
+    {
+      "name": "Walt Disney World",
+      "members" :[],
+      "duration": 10, 
+      "locations": [
+        {
+          "location": "Lake Buena Vista", 
+          "latitude": 28.3772, 
+          "longitude": -81.5707,
+          "date": "11/20/2023", 
+          "photos": [
+            "https://img.money.com/2017/05/170515-walt-disney-world-cost.jpeg?crop=0px%2C279px%2C2700px%2C1519px&quality=85"
+          ], 
+          "caption": "I saw so many Disney characters at Disney World."
+        }
+      ]
+    } , 
+    {
+      "name": "New York",
+      "members" :[],
+      "duration": 4, 
+      "locations": [
+        {
+          "location": "New York City",
+          "latitude": 40.7128, 
+          "longitude": -74.0060,
+          "date": "12/23/23", 
+          "photos": [
+            "https://www.tripsavvy.com/thmb/C55SxvFfoqLpb9IFL3rHLtvUn2M=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-642333830-5bd6f58dc9e77c0058677fba.jpg"
+          ], 
+          "caption": "It was so cold when we went to Times Square."
+        }
+      ]
+    } 
+  ];
+
+
+
   return (
     <div>
       <MapContainer
-        center={[firstTrip.locations[0].latitude, firstTrip.locations[0].longitide]}
+        center={[firstTrip.locations[0].latitude, firstTrip.locations[0].longitude]}
         zoom={14}
         style={{ height: "500px", width: "100%" }}
       >
@@ -51,14 +107,19 @@ const MapPage = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <Marker position={[firstTrip.locations[0].latitude, firstTrip.locations[0].longitide]} icon={customIcon}>
+        <Marker position={[firstTrip.locations[0].latitude, firstTrip.locations[0].longitude]} icon={customIcon}>
           <Popup>
             <Trip trip={firstTrip} />
-            <Link to={"/trip"} style={{ display: "block", marginTop: "10px" }}>
-              View Trip
-            </Link>
           </Popup>
         </Marker>
+        {demoTrips.map( demoTrip => 
+          <Marker position={[demoTrip.locations[0].latitude, demoTrip.locations[0].longitude]} icon={customIcon}>
+            <Popup>
+              <Trip trip={demoTrip} />
+            </Popup>
+          </Marker>
+
+        )}
       </MapContainer>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import Trip from "./TripCard.jsx"
 import MapPage from "./MapPage.jsx"
+import "./HomePage.css"
 
 const firstTrip = {
   "name": "Wisconsin",
@@ -75,12 +76,13 @@ const demoTrips = [
 
 const HomePage = () =>  {
   return (
-  <div >
-    <div>
+  <div>
+    <div >
       <MapPage />
     </div>
-    <div>
+    <div className = 'trip-list'>
       <Trip trip={firstTrip} simpleView={true}/>
+      {demoTrips.map(trip=><Trip trip={trip} simpleView={true}/>)}
     </div>
   </div>
 );
