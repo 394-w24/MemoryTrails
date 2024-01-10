@@ -1,9 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
 .wrap {
     display: flex;
   }
   
 .trip-map {
     flex-basis: 50%;
+    min-height: 300px;
 }
   
 .trip-info {
@@ -21,11 +26,25 @@
 }
 
 
+/* For landscape tablets (e.g., iPad in landscape mode) */
+@media (max-width: 1024px) {
+    .trip-map, .trip-info {
+        /* Adjust if necessary to account for any padding or margins */
+        flex-basis: 48%; 
+    }
+}
+
+/* For smaller devices (e.g., phones, portrait tablets) */
 @media (max-width: 768px) {
     .wrap {
         flex-direction: column;
     }
 
+    .trip-map {
+        order: -1;
+        flex-basis: 100%;
+        min-height: 300px; /* Ensure it's also set for smaller screens */
+    }
     .trip-map, .trip-info {
         flex-basis: 100%;
     }
