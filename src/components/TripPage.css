@@ -12,3 +12,22 @@
     height: 100vh; 
     overflow: auto;
 }
+
+.photos img {
+    width: 100%; 
+    height: auto; 
+    object-fit: cover; 
+    display: block;
+}
+
+
+@media (max-width: 768px) {
+    .wrap {
+        flex-direction: column;
+    }
+
+    .trip-map, .trip-info {
+        flex-basis: 100%;
+    }
+}
+
