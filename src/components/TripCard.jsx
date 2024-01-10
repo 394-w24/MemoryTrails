@@ -1,4 +1,5 @@
 import React from 'react';
+import "./TripCard.css";
 
   const Trip = ({ trip, simpleView }) => (
     <div className="card" style={{ width: '18rem' }} onClick={() => console.log("clicked")}>
