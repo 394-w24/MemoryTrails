@@ -35,32 +35,23 @@ const Location = ({ location, index  }) => (
 const TripPage = () => {
   const position = [43.0722, -89.4008];
   const [activeLocation, setActiveLocation] = useState(null);
-
+  const tripData = useDbData("trips/01/")[0];
+  
   useEffect(() => {
     console.log(`Active location index: ${activeLocation}`);
-    if (activeLocation !== null) {
+    if (tripData && tripData.locations && activeLocation !== null) {
       const locationElement = document.getElementById(`location-${activeLocation}`);
       console.log(`Scrolling to location ${activeLocation}`, locationElement);
       if (locationElement) {
         locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
-  }, [activeLocation]);
+  }, [activeLocation, tripData]);
+  
 
-  const tripData = useDbData("trips/01/")[0];
+  
 
   console.log(tripData);
-
-  // Function to scroll to the location info
-  // const scrollToLocation = (locationIndex) => {
-  //   const locationElement = document.getElementById(
-  //     `location-${locationIndex}`
-  //   );
-  //   console.log(`Scrolling to location ${locationIndex}`, locationElement);
-  //   if (locationElement) {
-  //     locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
-  //   }
-  // };
 
   if(tripData === undefined) {
     return(<div></div>)
@@ -109,7 +100,7 @@ const TripPage = () => {
         </div>
         <div className="trip-info">
           {tripData.locations.map((location, index) => (
-            <Location key={index} location={location} />
+            <Location index={index} location={location} />
           ))}
         </div>
       </div>
