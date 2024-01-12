@@ -4,30 +4,30 @@
 
 .wrap {
     display: flex;
-    flex-wrap: wrap; 
-    width: 100%; 
+    flex-wrap: wrap;
+    width: 100%;
 }
 
-  
+
 .trip-map {
     flex-basis: 50%;
     max-width: 50%;
-    /* min-height: 300px; */
+    min-height: 300px;
     box-sizing: border-box;
 }
-  
+
 .trip-info {
     flex-basis: 50%;
     max-width: 50%;
-    height: 100vh; 
+    height: 100vh;
     overflow: auto;
     box-sizing: border-box;
 }
 
 .photos img {
-    width: 100%; 
-    height: auto; 
-    object-fit: cover; 
+    width: 100%;
+    height: auto;
+    object-fit: cover;
     display: block;
 }
 
@@ -36,7 +36,7 @@
 @media (max-width: 1024px) {
     .trip-map, .trip-info {
         /* Adjust if necessary to account for any padding or margins */
-        flex-basis: 48%; 
+        flex-basis: 48%;
     }
 }
 
@@ -47,8 +47,14 @@
     }
 
     .trip-map, .trip-info {
+        display: grid;
         flex-basis: 100%;
         max-width: 100%; /* Take full width on smaller screens */
+        position: static;
     }
 }
+
+/* .leaflet-container {
+    position: static !important;
+} */
 
