@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import tripData from "../../data/data.json";
+// import tripData from "../../data/data.json";
 import "./TripPage.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -36,9 +36,20 @@ const TripPage = () => {
   const position = [43.0722, -89.4008];
   const [activeLocation, setActiveLocation] = useState(null);
 
-  const tripData1 = useDbData("trips/01/")[0];
+  useEffect(() => {
+    console.log(`Active location index: ${activeLocation}`);
+    if (activeLocation !== null) {
+      const locationElement = document.getElementById(`location-${activeLocation}`);
+      console.log(`Scrolling to location ${activeLocation}`, locationElement);
+      if (locationElement) {
+        locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [activeLocation]);
 
-  console.log(tripData1);
+  const tripData = useDbData("trips/01/")[0];
+
+  console.log(tripData);
 
   // Function to scroll to the location info
   // const scrollToLocation = (locationIndex) => {
@@ -50,16 +61,12 @@ const TripPage = () => {
   //     locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
   //   }
   // };
-  useEffect(() => {
-    console.log(`Active location index: ${activeLocation}`);
-    if (activeLocation !== null) {
-      const locationElement = document.getElementById(`location-${activeLocation}`);
-      console.log(`Scrolling to location ${activeLocation}`, locationElement);
-      if (locationElement) {
-        locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-  }, [activeLocation]);
+
+  if(tripData === undefined) {
+    return(<div></div>)
+  }
+
+
   // console.log("Number of locations:", tripData.locations.length);
   return (
     <div>
