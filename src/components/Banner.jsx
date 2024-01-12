@@ -27,25 +27,30 @@ const Banner = () => {
         </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Add Trip:</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Trip Name</Form.Label>
                 <Form.Control
-                  type="email"
-                  placeholder="name@example.com"
+                  type="trip_name"
+                  placeholder="Your Trip's name"
                   autoFocus
                 />
               </Form.Group>
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-              >
-                <Form.Label>Example textarea</Form.Label>
-                <Form.Control as="textarea" rows={3} />
+              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <Form.Label>Trip members:</Form.Label>
+                <Form.Control as="textarea" rows={1} />
               </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <Form.Label>Trip date:</Form.Label>
+                <Form.Control as="textarea" rows={1} />
+              </Form.Group>
+              <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+                <input class="form-control" type="file" id="formFileMultiple" multiple />
+              </div>
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -53,7 +58,7 @@ const Banner = () => {
               Close
             </Button>
             <Button variant="primary" onClick={handleClose}>
-              Save Changes
+              Upload Trip
             </Button>
           </Modal.Footer>
         </Modal>
