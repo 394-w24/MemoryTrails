@@ -7,6 +7,7 @@ import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import { useDbData } from "../utilities/firebase";
 
 const customIcon = new L.Icon({
   iconUrl: icon,
@@ -35,6 +36,10 @@ const TripPage = () => {
   const position = [43.0722, -89.4008];
   const [activeLocation, setActiveLocation] = useState(null);
 
+  const tripData1 = useDbData("trips/01/")[0];
+
+  console.log(tripData1);
+
   // Function to scroll to the location info
   // const scrollToLocation = (locationIndex) => {
   //   const locationElement = document.getElementById(
@@ -54,7 +59,7 @@ const TripPage = () => {
         locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
-  }, [activeLocation]); 
+  }, [activeLocation]);
   // console.log("Number of locations:", tripData.locations.length);
   return (
     <div>

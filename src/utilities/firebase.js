@@ -26,17 +26,17 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-if (!globalThis.EMULATION && import.meta.env.MODE === 'development') {
-  connectAuthEmulator(auth, "http://127.0.0.1:9099");
-  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+// if (!globalThis.EMULATION && import.meta.env.MODE === 'development') {
+//   connectAuthEmulator(auth, "http://127.0.0.1:9099");
+//   connectDatabaseEmulator(database, "127.0.0.1", 9000);
 
-signInWithCredential(auth, GoogleAuthProvider.credential(
-  '{"sub": "9LRikOjabn7Jlht28NbQ46rJPSzg", "email": "testuser@gmail.com", "displayName":"testuser", "email_verified": true}'
-));
+// signInWithCredential(auth, GoogleAuthProvider.credential(
+//   '{"sub": "9LRikOjabn7Jlht28NbQ46rJPSzg", "email": "testuser@gmail.com", "displayName":"testuser", "email_verified": true}'
+// ));
 
-// set flag to avoid connecting twice, e.g., because of an editor hot-reload
-globalThis.EMULATION = true;
-}
+// // set flag to avoid connecting twice, e.g., because of an editor hot-reload
+// globalThis.EMULATION = true;
+// }
 
 export const useDbData = (path) => {
   const [data, setData] = useState();
@@ -84,11 +84,11 @@ export const importDataToFirebase = async () => {
   export const signInWithGoogle = () => {
     signInWithPopup(getAuth(app), new GoogleAuthProvider());
   };
-  
+
   const firebaseSignOut = () => signOut(getAuth(app));
-  
+
   export { firebaseSignOut as signOut };
-  
+
   export const useAuthState = () => {
     const [user, setUser] = useState();
     useEffect(() => onAuthStateChanged(getAuth(app), setUser), []);
