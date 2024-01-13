@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import tripData from "../../data/data.json";
+// import tripData from "../../data/data.json";
 import "./TripPage.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -7,6 +7,7 @@ import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import { useDbData } from "../utilities/firebase";
 
 const customIcon = new L.Icon({
   iconUrl: icon,
@@ -34,27 +35,29 @@ const Location = ({ location, index  }) => (
 const TripPage = () => {
   const position = [43.0722, -89.4008];
   const [activeLocation, setActiveLocation] = useState(null);
-
-  // Function to scroll to the location info
-  // const scrollToLocation = (locationIndex) => {
-  //   const locationElement = document.getElementById(
-  //     `location-${locationIndex}`
-  //   );
-  //   console.log(`Scrolling to location ${locationIndex}`, locationElement);
-  //   if (locationElement) {
-  //     locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
-  //   }
-  // };
+  const tripData = useDbData("trips/01/")[0];
+  
   useEffect(() => {
     console.log(`Active location index: ${activeLocation}`);
-    if (activeLocation !== null) {
+    if (tripData && tripData.locations && activeLocation !== null) {
       const locationElement = document.getElementById(`location-${activeLocation}`);
       console.log(`Scrolling to location ${activeLocation}`, locationElement);
       if (locationElement) {
         locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
-  }, [activeLocation]); 
+  }, [activeLocation, tripData]);
+  
+
+  
+
+  console.log(tripData);
+
+  if(tripData === undefined) {
+    return(<div></div>)
+  }
+
+
   // console.log("Number of locations:", tripData.locations.length);
   return (
     <div>
@@ -97,7 +100,7 @@ const TripPage = () => {
         </div>
         <div className="trip-info">
           {tripData.locations.map((location, index) => (
-            <Location key={index} location={location} />
+            <Location index={index} location={location} />
           ))}
         </div>
       </div>
