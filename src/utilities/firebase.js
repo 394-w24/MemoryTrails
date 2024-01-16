@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { useState, useEffect, useCallback } from "react";
-import { getDatabase, ref, onValue, update, connectDatabaseEmulator } from "firebase/database";
+import { getDatabase, ref, onValue, update, connectDatabaseEmulator , get} from "firebase/database";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -56,6 +56,11 @@ export const useDbUpdate = (path) => {
 
   return [updateData, result];
 };
+
+export const getDbData = async (path) => {
+  const snapshot = await get(ref(database, path));
+  return snapshot.val();
+}
 
 export const writeToDb = (path, value) => {
   update(ref(database, path), value)

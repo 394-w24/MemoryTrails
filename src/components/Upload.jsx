@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { writeToDb } from "../utilities/firebase";
-import { useFormData } from '../utilities/useFormData';
+import { getDbData } from "../utilities/firebase";
 
 
 const Upload = () => {
@@ -13,14 +13,37 @@ const Upload = () => {
     const handleShow = () => setShow(true);
 
     
-    const onFormSubmit = e => {
-        e.preventDefault()
-        console.log(e.target)
-        const formData = new FormData(e.target),
-            formDataObj = Object.fromEntries(formData.entries())
-        console.log(formDataObj) //form entries stored in formDataObj
-        writeToDb(`trips`, formDataObj);
-    }
+    const onFormSubmit = async (e) => {
+        e.preventDefault();
+    
+        const formData = new FormData(e.target);
+        const formDataObj = Object.fromEntries(formData.entries());
+    
+        const existingTrips = await getDbData('trips');
+    
+        let highestNumber = 0;
+        if (existingTrips) {
+            highestNumber = Object.keys(existingTrips)
+                .map(key => parseInt(key.match(/\d+/), 10)) 
+                .reduce((max, current) => Math.max(max, current), 0);
+        }
+    
+        const newTripNumber = (highestNumber + 1).toString().padStart(2, '0'); 
+    
+        const tripData = {
+            name: formDataObj.tripName,
+            members: formDataObj.tripMembers.split(',').map(member => member.trim()),
+            locations: [{
+                location: formDataObj.tripLocation,
+                caption: formDataObj.tripPhotoCaption,
+                date: formDataObj.tripStartDate,
+            }],
+        };
+        console.log(tripData)
+    
+        writeToDb(`trips/${newTripNumber}`, tripData);
+    };
+    
     return (
     <div>
         <Button variant="primary" onClick={handleShow}>
