@@ -16,7 +16,7 @@ const Banner = () => {
       </div>
 
       <div className='banner-right'>
-        <Upload/>
+        <Upload />
       </div>
     </div>
   );

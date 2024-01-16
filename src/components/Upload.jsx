@@ -3,8 +3,8 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-
-
+import { writeToDb } from "../utilities/firebase";
+import { useFormData } from '../utilities/useFormData';
 
 
 const Upload = () => {
@@ -12,12 +12,14 @@ const Upload = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    
     const onFormSubmit = e => {
         e.preventDefault()
         console.log(e.target)
         const formData = new FormData(e.target),
             formDataObj = Object.fromEntries(formData.entries())
         console.log(formDataObj) //form entries stored in formDataObj
+        writeToDb(`trips`, formDataObj);
     }
     return (
     <div>
