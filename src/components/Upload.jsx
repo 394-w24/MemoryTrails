@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { writeToDb } from "../utilities/firebase";
 import { getDbData } from "../utilities/firebase";
+import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
 
 
 const Upload = () => {
@@ -29,12 +30,17 @@ const Upload = () => {
         }
     
         const newTripNumber = (highestNumber + 1).toString().padStart(2, '0'); 
-    
+        //add coordinates to the scope:
+        const coordinates = await getCoordinatesForLocation(formDataObj.tripLocation);
+
         const tripData = {
             name: formDataObj.tripName,
             members: formDataObj.tripMembers.split(',').map(member => member.trim()),
             locations: [{
                 location: formDataObj.tripLocation,
+                //add latitude and longitude:
+                latitude: coordinates.lat,
+                longitude: coordinates.lon,
                 caption: formDataObj.tripPhotoCaption,
                 date: formDataObj.tripStartDate,
             }],

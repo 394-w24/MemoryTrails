@@ -3,7 +3,6 @@ import './Banner.css';
 import { Link } from 'react-router-dom';
 import Upload from './Upload';
 
-
 const Banner = () => {
   return (
     <div className="banner">
