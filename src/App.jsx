@@ -11,7 +11,7 @@ const App = ()  => {
     <Banner />
       <Routes>
         <Route path="/" element={<HomePage />}/>
-        <Route path="/trip" element={<TripPage /> } />
+        <Route path="/trip/:tripId" element={<TripPage /> } />
       </Routes>
     </BrowserRouter>
   );

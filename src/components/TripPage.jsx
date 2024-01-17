@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 // import tripData from "../../data/data.json";
 import "./TripPage.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -33,9 +34,13 @@ const Location = ({ location, index  }) => (
 );
 
 const TripPage = () => {
-  const position = [43.0722, -89.4008];
+  const { tripId } = useParams();
+  console.log("trip id:",tripId)
   const [activeLocation, setActiveLocation] = useState(null);
-  const tripData = useDbData("trips/01/")[0];
+  const tripData = useDbData(`trips/${tripId}/`)[0];
+  console.log(tripData);
+  const position = [tripData?.locations?.[0]?.latitude, tripData?.locations?.[0]?.longitude];
+
 
   useEffect(() => {
     console.log(`Active location index: ${activeLocation}`);

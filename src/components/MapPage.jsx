@@ -47,14 +47,15 @@ const MapPage = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {tripArray.map( (demoTrip) =>
-          <Marker position={[demoTrip.locations[0].latitude, demoTrip.locations[0].longitude]} icon={customIcon}>
+        {Object.entries(tripData[0]).map(([tripId, trip]) => (
+          <Marker position={[trip.locations[0].latitude, trip.locations[0].longitude]} icon={customIcon}>
             <Popup>
-              <Trip trip={demoTrip}/>
+            <Trip key={tripId} tripId={tripId} trip={trip} simpleView={true}/>
             </Popup>
           </Marker>
+          ))}
 
-        )}
+       
       </MapContainer>
     </div>
   );
