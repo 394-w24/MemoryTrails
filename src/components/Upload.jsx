@@ -10,8 +10,13 @@ import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
 
 const Upload = () => {
     const [show, setShow] = useState(false);
+    const [locations, setLocations] = useState([{ location: '', photos: [], caption: '' }]);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const addLocation = () => {
+        setLocations([...locations, { location: '', photos: [], caption: '' }]);
+    };
 
     
     const onFormSubmit = async (e) => {
@@ -30,20 +35,23 @@ const Upload = () => {
         }
     
         const newTripNumber = (highestNumber + 1).toString().padStart(2, '0'); 
-        //add coordinates to the scope:
-        const coordinates = await getCoordinatesForLocation(formDataObj.tripLocation);
+        // Process each location
+        const processedLocations = locations.map(async (location, index) => {
+            const coordinates = await getCoordinatesForLocation(location.location);
+            return {
+                location: location.location,
+                latitude: coordinates.lat,
+                longitude: coordinates.lon,
+                caption: location.caption,
+                date: formDataObj.tripStartDate,
+                photos: formDataObj[`tripPhotos_${index}`] // This assumes you handle file inputs separately
+            };
+        });
 
         const tripData = {
             name: formDataObj.tripName,
             members: formDataObj.tripMembers.split(',').map(member => member.trim()),
-            locations: [{
-                location: formDataObj.tripLocation,
-                //add latitude and longitude:
-                latitude: coordinates.lat,
-                longitude: coordinates.lon,
-                caption: formDataObj.tripPhotoCaption,
-                date: formDataObj.tripStartDate,
-            }],
+            locations: await Promise.all(processedLocations)
         };
         console.log(tripData)
     
@@ -77,16 +85,26 @@ const Upload = () => {
                 <Form.Control type="text" name="tripStartDate"/>
                 </Form.Group>
                 <hr/>
-                <Form.Group className="mb-3" >
-                <Form.Label>Location</Form.Label>
-                <Form.Control type = "text" name="tripLocation"/>
-                <div class="mb-3">
-                    <label for="formFileMultiple" className="form-label">Multiple files input example</label>
-                    <input className="form-control" type="file" name = "tripPhotos" id="formFileMultiple" multiple />
-                </div>
-                <Form.Label>Caption</Form.Label>
-                <Form.Control type = "text" name="tripPhotoCaption"/>
-                </Form.Group>
+
+                {locations.map((location, index) => (
+                        <div key={index}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Location</Form.Label>
+                                <Form.Control type="text" name={`tripLocation_${index}`} />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <input className="form-control" type="file" name={`tripPhotos_${index}`} id={`formFileMultiple_${index}`} multiple />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Caption</Form.Label>
+                                <Form.Control type="text" name={`tripPhotoCaption_${index}`} />
+                            </Form.Group>
+                        </div>
+                    ))}
+
+                <Button variant="secondary" onClick={addLocation}>
+                    Add More Location
+                </Button>
                 <hr/>
                 <Button variant="secondary" onClick={handleClose}>
                 Close
