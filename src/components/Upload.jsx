@@ -3,8 +3,8 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { writeToDb } from "../utilities/firebase";
-import { getDbData } from "../utilities/firebase";
+import { writeToDb, getDbData } from "../utilities/firebase";
+import { uploadFileToFirebase} from "../utilities/firebaseStorage"
 import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
 
 
@@ -23,9 +23,12 @@ const Upload = () => {
         e.preventDefault();
     
         const formData = new FormData(e.target);
+        console.log("Form data retrieved:", formData);
         const formDataObj = Object.fromEntries(formData.entries());
-    
+        console.log("Form data object:", formDataObj);
+        
         const existingTrips = await getDbData('trips');
+        console.log("Existing trips:", existingTrips); 
     
         let highestNumber = 0;
         if (existingTrips) {
@@ -36,16 +39,32 @@ const Upload = () => {
     
         const newTripNumber = (highestNumber + 1).toString().padStart(2, '0'); 
         // Process each location
-        const processedLocations = locations.map(async (location, index) => {
-            const coordinates = await getCoordinatesForLocation(location.location);
+        const processedLocations = locations.map(async (_, index) => {
+            const locationName = formDataObj[`tripLocation_${index}`];
+            const caption = formDataObj[`tripPhotoCaption_${index}`];
+
+            const coordinates = await getCoordinatesForLocation(locationName);
+            console.log(`Coordinates:`, coordinates);
+            let photoUrls = [];
+
+            // Retrieve the file input for the current index
+            const fileInput = formData.get(`tripPhotos_${index}`);
+            console.log("file:", fileInput)
+            if (fileInput) {
+                const fileUrl = await uploadFileToFirebase(fileInput);
+                photoUrls.push(fileUrl);
+            }
+            console.log(`Processed location ${index}:`, location);
+            console.log("photo url:",photoUrls)
             return {
-                location: location.location,
+                location: locationName,
                 latitude: coordinates.lat,
                 longitude: coordinates.lon,
-                caption: location.caption,
+                caption: caption,
                 date: formDataObj.tripStartDate,
-                photos: formDataObj[`tripPhotos_${index}`] // This assumes you handle file inputs separately
+                photos: photoUrls 
             };
+
         });
 
         const tripData = {

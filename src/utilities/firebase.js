@@ -1,6 +1,8 @@
+
 import { initializeApp } from "firebase/app";
 import { useState, useEffect, useCallback } from "react";
 import { getDatabase, ref, onValue, update, connectDatabaseEmulator , get} from "firebase/database";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
   getAuth,
   GoogleAuthProvider,
@@ -24,6 +26,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 const database = getDatabase(app);
+
 
 export const useDbData = (path) => {
   const [data, setData] = useState();
@@ -55,6 +58,26 @@ export const useDbUpdate = (path) => {
   }, [database, path]);
 
   return [updateData, result];
+};
+
+export const uploadFileToFirebase = async (file) => {
+  if (!file) {
+      throw new Error("No file provided");
+  }
+  const storage = getStorage();
+  console.log("storage:",storage)
+  console.log("filename:",file.name)
+  const fileRef = ref(storage, "newyork.jpg");
+  console.log("storageref:",fileRef)
+
+  try {
+    const snapshot = await uploadBytes(fileRef, file);
+    const url = await getDownloadURL(snapshot.ref);
+    return url;
+  } catch (error) {
+      console.error("Error uploading file: ", error);
+      throw error;
+  }
 };
 
 export const getDbData = async (path) => {
