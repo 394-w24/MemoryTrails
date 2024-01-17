@@ -13,6 +13,7 @@ const Upload = () => {
     const [locations, setLocations] = useState([{ location: '', photos: [], caption: '' }]);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [submitStatus, setSubmitStatus] = useState(null);
 
     const addLocation = () => {
         setLocations([...locations, { location: '', photos: [], caption: '' }]);
@@ -75,6 +76,8 @@ const Upload = () => {
         console.log(tripData)
     
         writeToDb(`trips/${newTripNumber}`, tripData);
+        handleClose();
+        setSubmitStatus('Trip added successfully!');
     };
     
     return (
