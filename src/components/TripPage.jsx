@@ -36,7 +36,7 @@ const TripPage = () => {
   const position = [43.0722, -89.4008];
   const [activeLocation, setActiveLocation] = useState(null);
   const tripData = useDbData("trips/01/")[0];
-  
+
   useEffect(() => {
     console.log(`Active location index: ${activeLocation}`);
     if (tripData && tripData.locations && activeLocation !== null) {
@@ -47,9 +47,9 @@ const TripPage = () => {
       }
     }
   }, [activeLocation, tripData]);
-  
 
-  
+
+
 
   console.log(tripData);
 
