@@ -52,7 +52,7 @@ const Upload = () => {
             const fileInput = formData.get(`tripPhotos_${index}`);
             console.log("file:", fileInput)
             if (fileInput) {
-                const fileUrl = await uploadFileToFirebase(fileInput);
+                const fileUrl = await uploadFileToFirebase(fileInput, locationName, photoUrls.length);
                 photoUrls.push(fileUrl);
             }
             console.log(`Processed location ${index}:`, location);
@@ -116,7 +116,7 @@ const Upload = () => {
                                 <Form.Control type="text" name={`tripLocation_${index}`} />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <input className="form-control" type="file" name={`tripPhotos_${index}`} id={`formFileMultiple_${index}`} multiple />
+                                <input className="form-control" type="file" name={`tripPhotos_${index}`} id={`formFileMultiple_${index}`}/>
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <Form.Label>Caption</Form.Label>

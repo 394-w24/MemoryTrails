@@ -1,13 +1,13 @@
 import { getStorage, ref, uploadBytes, getDownloadURL  } from 'firebase/storage';
 
-export const uploadFileToFirebase = async (file) => {
+export const uploadFileToFirebase = async (file, locationName, id) => {
     if (!file) {
         throw new Error("No file provided");
     }
     const storage = getStorage();
     console.log("storage:",storage)
     console.log("filename:",file.name)
-    const fileRef = ref(storage, file.name);
+    const fileRef = ref(storage, `TripImages/${locationName}_${id}`);
     console.log("storageref:",fileRef)
   
     try {
