@@ -96,15 +96,16 @@ const Upload = () => {
                 <Form.Control
                     type="text"
                     name = "tripName"
+                    placeholder="e.g. Fun trip to Morocco!"
                 />
                 </Form.Group>
                 <Form.Group className="mb-3">
                 <Form.Label>Trip members:</Form.Label>
-                <Form.Control type = "text"  name = "tripMembers"/>
+                <Form.Control type = "text"  name = "tripMembers" placeholder="e.g. Mike, Joel, Wyatt"/>
                 </Form.Group>
                 <Form.Group className="mb-3">
                 <Form.Label>Trip Start Date:</Form.Label>
-                <Form.Control type="text" name="tripStartDate"/>
+                <Form.Control type="Date" name="tripStartDate"/>
                 </Form.Group>
                 <hr/>
 
