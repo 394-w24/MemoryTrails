@@ -8,7 +8,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import { useDbData } from "../utilities/firebase.js";
-
+import Carousel from 'react-bootstrap/Carousel';
 
 const customIcon = new L.Icon({
   iconUrl: icon,
@@ -36,6 +36,18 @@ const MapPage = () => {
   console.log("trips array")
   console.log(tripArray)
 
+  const locations = {}
+  
+  Object.entries(tripData[0]).map(([tripId, trip]) => {
+    if (locations[trip.locations[0].latitude + ":" + trip.locations[0].longitude]){
+      console.log(locations)
+      locations[trip.locations[0].latitude + ":" + trip.locations[0].longitude].push({tripId, trip})
+    }else{
+      console.log(locations)
+      locations[trip.locations[0].latitude + ":" + trip.locations[0].longitude] = [{tripId, trip}]
+    }
+  })
+
   return (
     <div>
       <MapContainer
@@ -47,15 +59,19 @@ const MapPage = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {Object.entries(tripData[0]).map(([tripId, trip]) => (
-          <Marker position={[trip.locations[0].latitude, trip.locations[0].longitude]} icon={customIcon}>
+        {Object.values(locations).map(tripList => (
+          <Marker position={[tripList[0].trip.locations[0].latitude, tripList[0].trip.locations[0].longitude]} icon={customIcon}>
             <Popup>
-            <Trip key={tripId} tripId={tripId} trip={trip} simpleView={true}/>
-            </Popup>
-          </Marker>
-          ))}
-
-       
+              <Carousel>
+                  {tripList.map(trip => (
+                          <Carousel.Item>
+                              <Trip key={trip.tripId} tripId={trip.tripId} trip={trip.trip} simpleView={true}/>
+                          </Carousel.Item>
+                  ))} 
+                </Carousel>
+              </Popup>
+          </Marker> 
+        ))}
       </MapContainer>
     </div>
   );
