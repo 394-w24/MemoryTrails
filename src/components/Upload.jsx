@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import { writeToDb, getDbData } from "../utilities/firebase";
 import { uploadFileToFirebase} from "../utilities/firebaseStorage"
 import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
+import AutoComplete from './LocationPicker';
 
 
 const Upload = () => {
@@ -114,6 +115,7 @@ const Upload = () => {
                             <Form.Group className="mb-3">
                                 <Form.Label>Location</Form.Label>
                                 <Form.Control type="text" name={`tripLocation_${index}`} />
+                                <AutoComplete />
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <input className="form-control" type="file" name={`tripPhotos_${index}`} id={`formFileMultiple_${index}`} multiple />
