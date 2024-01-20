@@ -35,6 +35,7 @@ const Upload = () => {
     
     const onFormSubmit = async (e) => {
         e.preventDefault();
+        handleLocationSelect()
     
         const formData = new FormData(e.target);
         console.log("Form data retrieved:", formData);
@@ -53,14 +54,15 @@ const Upload = () => {
     
         const newTripNumber = (highestNumber + 1).toString().padStart(2, '0'); 
         // Process each location
-        const processedLocations = locations.map(async (_, index) => {
+        const processedLocations = locations.map(async (location, index) => {
+            console.log("location", location);
             const locationName = formDataObj[`tripLocation_${index}`];
             const caption = formDataObj[`tripPhotoCaption_${index}`];
             const { lat, lng } = location.coordinates || {};
 
             // const coordinates = await getCoordinatesForLocation(locationName);
             console.log(`lat:`, lat);
-            console.log(`lng:`, lat);
+            console.log(`lng:`, lng);
             let photoUrls = [];
 
             // Retrieve the file input for the current index
@@ -73,7 +75,7 @@ const Upload = () => {
             console.log(`Processed location ${index}:`, location);
             console.log("photo url:",photoUrls)
             return {
-                location: locationName,
+                location: location.location,
                 latitude: lat,
                 longitude: lng,
                 caption: caption,
