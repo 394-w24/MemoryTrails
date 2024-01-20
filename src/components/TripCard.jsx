@@ -16,8 +16,6 @@ import "./TripCard.css";
           <div>
             <div className="card-footer">
               <div> start date: {trip.locations[0].date} </div>
-              <br/>
-              <div> trip duration: {trip.duration} days </div>
             </div>
             {/* <div>
               <Link to={`/trip/${tripId}`} style={{ display: "block", marginTop: "10px" }}>
