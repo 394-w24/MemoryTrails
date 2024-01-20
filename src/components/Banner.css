@@ -1,8 +1,10 @@
   .banner {
+    position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #f3f3f3; 
+    z-index: 1000;
     width: 100vw;
   }
   
