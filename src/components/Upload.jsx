@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { writeToDb, getDbData } from "../utilities/firebase";
 import { uploadFileToFirebase} from "../utilities/firebaseStorage"
-import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
+// import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
 import AutoComplete from './LocationPicker';
 
 
@@ -19,6 +19,18 @@ const Upload = () => {
     const addLocation = () => {
         setLocations([...locations, { location: '', photos: [], caption: '' }]);
     };
+    const handleLocationSelect = (index, address, coordinates) => {
+        console.log(`Location selected at index ${index}:`, address, coordinates); // Log for debugging
+        const updatedLocations = locations.map((location, locIndex) => {
+            if (index === locIndex) {
+                return { ...location, location: address, coordinates };
+            }
+            return location;
+        });
+        setLocations(updatedLocations);
+        console.log("Updated locations:", updatedLocations); // Log for debugging
+    };
+    
 
     
     const onFormSubmit = async (e) => {
@@ -44,9 +56,11 @@ const Upload = () => {
         const processedLocations = locations.map(async (_, index) => {
             const locationName = formDataObj[`tripLocation_${index}`];
             const caption = formDataObj[`tripPhotoCaption_${index}`];
+            const { lat, lng } = location.coordinates || {};
 
-            const coordinates = await getCoordinatesForLocation(locationName);
-            console.log(`Coordinates:`, coordinates);
+            // const coordinates = await getCoordinatesForLocation(locationName);
+            console.log(`lat:`, lat);
+            console.log(`lng:`, lat);
             let photoUrls = [];
 
             // Retrieve the file input for the current index
@@ -60,8 +74,8 @@ const Upload = () => {
             console.log("photo url:",photoUrls)
             return {
                 location: locationName,
-                latitude: coordinates.lat,
-                longitude: coordinates.lon,
+                latitude: lat,
+                longitude: lng,
                 caption: caption,
                 date: formDataObj.tripStartDate,
                 photos: photoUrls 
@@ -114,8 +128,11 @@ const Upload = () => {
                         <div key={index}>
                             <Form.Group className="mb-3">
                                 <Form.Label>Location</Form.Label>
-                                <Form.Control type="text" name={`tripLocation_${index}`} />
-                                <AutoComplete />
+                                {/* <Form.Control type="text" name={`tripLocation_${index}`} /> */}
+                                <AutoComplete 
+                                    index={index} 
+                                    onLocationSelect={handleLocationSelect} 
+                                />
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <input className="form-control" type="file" name={`tripPhotos_${index}`} id={`formFileMultiple_${index}`} multiple />
