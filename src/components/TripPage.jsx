@@ -20,6 +20,15 @@ const customIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
+const numberedIcon = (number) => new L.DivIcon({
+  className: "custom-icon",
+  html: `<img src="${icon}" alt="marker" /><span>${number}</span>`,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
 const Location = ({ location, index  }) => (
   <div className="location" id={`location-${index}`}>
     <h3>{location.location}</h3>
@@ -90,7 +99,7 @@ const TripPage = () => {
                 <Marker
                   key={index}
                   position={[parseFloat(location.latitude), parseFloat(location.longitude)]}
-                  icon={customIcon}
+                  icon={numberedIcon(index + 1)}
                   eventHandlers={{
                     click: () => {
                       setActiveLocation(index);

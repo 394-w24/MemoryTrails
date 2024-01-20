@@ -31,6 +31,20 @@
     display: block;
 }
 
+.custom-icon {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .custom-icon span {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 15px;
+  }
+
 
 /* For landscape tablets (e.g., iPad in landscape mode) */
 @media (max-width: 1024px) {
