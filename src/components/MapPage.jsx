@@ -9,6 +9,7 @@ import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import { useDbData } from "../utilities/firebase.js";
 import Carousel from 'react-bootstrap/Carousel';
+import "./TripCard.css";
 
 const customIcon = new L.Icon({
   iconUrl: icon,
@@ -65,7 +66,15 @@ const MapPage = () => {
               <Carousel>
                   {tripList.map(trip => (
                           <Carousel.Item>
-                              <Trip key={trip.tripId} tripId={trip.tripId} trip={trip.trip} simpleView={true}/>
+                            <div className="card" style={{ width: '18rem' }}>
+                              {/* <Trip key={trip.tripId} tripId={trip.tripId} trip={trip.trip} simpleView={true}/> */}
+                                <img src={trip.trip.locations[0].photos[0]} className="card-img-top" alt="Trip photo"/>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                  <Link to={`/trip/${trip.tripId}`}>
+                                    {trip.trip.name}
+                                  </Link>
+                                </div>
+                              </div>
                           </Carousel.Item>
                   ))} 
                 </Carousel>
@@ -78,3 +87,4 @@ const MapPage = () => {
 };
 
 export default MapPage;
+
