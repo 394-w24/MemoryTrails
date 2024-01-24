@@ -75,11 +75,12 @@ const TripPage = () => {
   // console.log("Number of locations:", tripData.locations.length);
   return (
     <div>
-      <h2>{tripData.name}</h2>
-      <div className="members">
-        <strong>Members:</strong> {tripData.members.join(", ")}
-      </div>
+     
       <div className="wrap">
+        <h2 style={{marginTop:'60px', marginLeft: '25px'}}>{tripData.name}</h2>
+        <div className="members" style={{marginTop:'100px', marginLeft:'-325px'}}>
+          <strong>Members:</strong> {tripData.members.join(", ")}
+        </div>
         <div className="trip-map">
           <MapContainer
             center={position}
