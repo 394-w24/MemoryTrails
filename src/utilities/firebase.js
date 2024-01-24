@@ -1,6 +1,8 @@
+
 import { initializeApp } from "firebase/app";
 import { useState, useEffect, useCallback } from "react";
-import { getDatabase, ref, onValue, update, connectDatabaseEmulator } from "firebase/database";
+import { getDatabase, ref, onValue, update, connectDatabaseEmulator , get} from "firebase/database";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
   getAuth,
   GoogleAuthProvider,
@@ -23,20 +25,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig)
-const auth = getAuth(app);
 const database = getDatabase(app);
 
-if (!globalThis.EMULATION && import.meta.env.MODE === 'development') {
-  connectAuthEmulator(auth, "http://127.0.0.1:9099");
-  connectDatabaseEmulator(database, "127.0.0.1", 9000);
-
-signInWithCredential(auth, GoogleAuthProvider.credential(
-  '{"sub": "9LRikOjabn7Jlht28NbQ46rJPSzg", "email": "testuser@gmail.com", "displayName":"testuser", "email_verified": true}'
-));
-
-// set flag to avoid connecting twice, e.g., because of an editor hot-reload
-globalThis.EMULATION = true;
-}
 
 export const useDbData = (path) => {
   const [data, setData] = useState();
@@ -70,16 +60,16 @@ export const useDbUpdate = (path) => {
   return [updateData, result];
 };
 
-export const importDataToFirebase = async () => {
-    try {
-      const response = await axios.get('https://courses.cs.northwestern.edu/394/data/cs-courses.php');
-      const courses = response.data;
-      await set(ref(database, '/courses'), courses);
-      console.log('Data imported successfully.');
-    } catch (error) {
-      console.error('Error importing data:', error);
-    }
-  };
+export const getDbData = async (path) => {
+  const snapshot = await get(ref(database, path));
+  return snapshot.val();
+}
+
+export const writeToDb = (path, value) => {
+  update(ref(database, path), value)
+      .then(() => console.log("Successfully written to database.", value))
+      .catch((error) => console.log(error));
+}
 
   export const signInWithGoogle = () => {
     signInWithPopup(getAuth(app), new GoogleAuthProvider());
@@ -94,4 +84,3 @@ export const importDataToFirebase = async () => {
     useEffect(() => onAuthStateChanged(getAuth(app), setUser), []);
     return [user];
   };
-

@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+}
+
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+
+.trip-map {
+    flex-basis: 50%;
+    max-width: 50%;
+    min-height: 300px;
+    box-sizing: border-box;
+}
+
+.trip-info {
+    flex-basis: 50%;
+    max-width: 50%;
+    height: 100vh;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.photos img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+.custom-icon {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .custom-icon span {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+
+/* For landscape tablets (e.g., iPad in landscape mode) */
+@media (max-width: 1024px) {
+    .trip-map, .trip-info {
+        /* Adjust if necessary to account for any padding or margins */
+        flex-basis: 48%;
+    }
+}
+
+/* For smaller devices (e.g., phones, portrait tablets) */
+@media (max-width: 768px) {
+    .wrap {
+        flex-direction: column;
+    }
+
+    .trip-map, .trip-info {
+        display: grid;
+        flex-basis: 100%;
+        max-width: 100%; /* Take full width on smaller screens */
+        position: static;
+    }
+}
+
+/* .leaflet-container {
+    position: static !important;
+} */
+
