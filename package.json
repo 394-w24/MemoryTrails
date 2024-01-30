@@ -20,7 +20,8 @@
     "react-leaflet": "^4.2.1",
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^6.21.1",
-    "styled-components": "^6.1.6"
+    "styled-components": "^6.1.6",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@testing-library/react": "^14.1.2",
