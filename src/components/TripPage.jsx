@@ -77,46 +77,50 @@ const TripPage = () => {
     <div>
      
       <div className="wrap">
-        <h2 style={{marginTop:'60px', marginLeft: '25px'}}>{tripData.name}</h2>
-        <div className="members" style={{marginTop:'100px', marginLeft:'-325px'}}>
-          <strong>Members:</strong> {tripData.members.join(", ")}
+        <div className="trip-header">
+          <h2 style={{marginTop:'60px', marginLeft: '25px'}}>{tripData.name}</h2>
+          <div className="members" style={{marginTop:'100px', marginLeft:'-325px'}}>
+            <strong>Members:</strong> {tripData.members.join(", ")}
+          </div>
         </div>
-        <div className="trip-map">
-          <MapContainer
-            center={position}
-            zoom={8}
-            style={{ height: "100%", width: "100%" }}
-          >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            />
-            {tripData.locations.map((location, index) => {
-              // const key = `${location.latitude}-${location.longitude}`;
-              // console.log("location:", location);
-              // console.log("latitude", location.latitude);
-              // console.log("longitude", location.longitude);
-              return (
-                <Marker
-                  key={index}
-                  position={[parseFloat(location.latitude), parseFloat(location.longitude)]}
-                  icon={numberedIcon(index + 1)}
-                  eventHandlers={{
-                    click: () => {
-                      setActiveLocation(index);
-                    },
-                  }}
-                >
-                  <Popup>{location.location}</Popup>
-                </Marker>
-              );
-            })}
-          </MapContainer>
-        </div>
-        <div className="trip-info">
-          {tripData.locations.map((location, index) => (
-            <Location index={index} location={location} />
-          ))}
+        <div className="trip-content">
+          <div className="trip-map">
+            <MapContainer
+              center={position}
+              zoom={8}
+              style={{ height: "100%", width: "100%" }}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              {tripData.locations.map((location, index) => {
+                // const key = `${location.latitude}-${location.longitude}`;
+                // console.log("location:", location);
+                // console.log("latitude", location.latitude);
+                // console.log("longitude", location.longitude);
+                return (
+                  <Marker
+                    key={index}
+                    position={[parseFloat(location.latitude), parseFloat(location.longitude)]}
+                    icon={numberedIcon(index + 1)}
+                    eventHandlers={{
+                      click: () => {
+                        setActiveLocation(index);
+                      },
+                    }}
+                  >
+                    <Popup>{location.location}</Popup>
+                  </Marker>
+                );
+              })}
+            </MapContainer>
+          </div>
+          <div className="trip-info">
+            {tripData.locations.map((location, index) => (
+              <Location index={index} location={location} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

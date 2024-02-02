@@ -6,6 +6,8 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 
@@ -14,6 +16,17 @@
     max-width: 50%;
     min-height: 300px;
     box-sizing: border-box;
+    flex: 1;
+}
+
+.trip-header {
+    margin-bottom: 20px;
+}
+
+.trip-content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 }
 
 .trip-info {
@@ -22,6 +35,7 @@
     height: 100vh;
     overflow: auto;
     box-sizing: border-box;
+    flex: 1;
 }
 
 .photos img {
