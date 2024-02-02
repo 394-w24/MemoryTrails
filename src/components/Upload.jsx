@@ -8,6 +8,7 @@ import { uploadFileToFirebase} from "../utilities/firebaseStorage"
 // import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
 import AutoComplete from './LocationPicker';
 import { v4 as uuidv4 } from 'uuid';
+import './Upload.css'; 
 
 
 const Upload = () => {
@@ -104,9 +105,9 @@ const Upload = () => {
     };
 
     return (
-    <div>
-        <Button variant="primary" onClick={handleShow}>
-            Add Trip
+    <div className="upload-body">
+        <Button variant="primary" onClick={handleShow} className="upload-button">
+        <span className="upload-button-word">Add Trip</span>
         </Button>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>

@@ -78,7 +78,7 @@ const TripPage = () => {
      
       <div className="wrap">
         <div className="trip-header">
-          <h2 style={{marginTop:'60px', marginLeft: '25px'}}>{tripData.name}</h2>
+          <h2 style={{marginTop:'60px', marginLeft: '25px'}} className="trip-title">{tripData.name}</h2>
           <div className="members" style={{marginTop:'100px', marginLeft:'-325px'}}>
             <strong>Members:</strong> {tripData.members.join(", ")}
           </div>
