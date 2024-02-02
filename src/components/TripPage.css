@@ -46,7 +46,7 @@
 }
 
 .custom-icon {
-    position: relative;
+    position: absolute;
     display: inline-block;
   }
   
