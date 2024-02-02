@@ -12,6 +12,8 @@
 
 .card-footer {
     font-family: "Quattrocento", serif;
+    text-decoration: none;
+    color: inherit;
 }
 
 .card {
@@ -20,5 +22,5 @@
 }
 
 .card:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.2); /* Shadow effect */
+    box-shadow: 0 70px 80px 0 rgba(0.4,0.4,0.4,0.6); /* Shadow effect */
 }
