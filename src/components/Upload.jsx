@@ -8,14 +8,25 @@ import { uploadFileToFirebase} from "../utilities/firebaseStorage"
 // import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
 import AutoComplete from './LocationPicker';
 import { v4 as uuidv4 } from 'uuid';
+<<<<<<< HEAD
 import './Upload.css'; 
+=======
+import Alert from 'react-bootstrap/Alert';
+import "./Upload.css"
+>>>>>>> 0ed3de0 (Added confirmation message for successful/unsuccessful trip upload)
 
 
 const Upload = () => {
     const [show, setShow] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertVariant, setAlertVariant] = useState("");
     const [locations, setLocations] = useState([{ location: '', photos: [], caption: '' }]);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleShowAlert = () => setShowAlert(true);
+    const handleAlertVariant = (variant) => setAlertVariant(variant);
+    const handleAlertMessage = (message) => setAlertMessage(message);
     const [submitStatus, setSubmitStatus] = useState(null);
 
     const addLocation = () => {
@@ -101,9 +112,18 @@ const Upload = () => {
             id: uniqueId
         };
         console.log(tripData)
-
-        writeToDb(`trips/${newTripNumber}`, tripData);
-        console.log("status:");
+        var success = await writeToDb(`trips/${newTripNumber}`, tripData);
+        if (success) {
+            console.log("Successfully upload trip info")
+            handleAlertMessage("Successfully upload trip info")
+            handleAlertVariant("success")
+        } else {
+            console.log("Failed to upload trip info")
+            handleAlertMessage("Failed to upload trip info")
+            handleAlertVariant("danger")
+        }
+        handleShowAlert(true);
+        console.log("status:" + success);
         handleClose();
         setSubmitStatus('Trip added successfully!');
     };
@@ -148,7 +168,7 @@ const Upload = () => {
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Choose Images for the location</Form.Label>
+                                <Form.Label>Choose an image for the location</Form.Label>
                                 <input className="form-control" type="file" name={`tripPhotos_${index}`} id={`formFileMultiple_${index}`}/>
                             </Form.Group>
                             <Form.Group className="mb-3">
@@ -175,6 +195,11 @@ const Upload = () => {
             </Form>
             </Modal.Body>
         </Modal>
+        { showAlert && alertMessage.length > 0 && (
+            <Alert variant={alertVariant} onClose={() => setShowAlert(false)} dismissible className='upload-alert'>
+            <p>{alertMessage}</p>
+            </Alert>
+        )}
     </div>
     )
 

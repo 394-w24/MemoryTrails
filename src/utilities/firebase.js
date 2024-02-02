@@ -66,9 +66,11 @@ export const getDbData = async (path) => {
 }
 
 export const writeToDb = async (path, value) => {
+  var success = false;
   await update(ref(database, path), value)
-      .then(() => console.log("Successfully written to database.", value))
+      .then(() => {console.log("Successfully written to database.", value); success = true})
       .catch((error) => console.log(error));
+  return success
 }
 
   export const signInWithGoogle = () => {
