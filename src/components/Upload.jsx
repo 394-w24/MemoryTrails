@@ -20,6 +20,11 @@ const Upload = () => {
     const addLocation = () => {
         setLocations([...locations, { location: '', photos: [], caption: '' }]);
     };
+
+    const removeLocation = (indexToRemove) => {
+        setLocations(locations.filter((_, index) => index !== indexToRemove));
+    };
+
     const handleLocationSelect = (index, address, coordinates) => {
         console.log(`Location selected at index ${index}:`, address, coordinates); // Log for debugging
         const updatedLocations = locations.map((location, locIndex) => {
@@ -152,6 +157,9 @@ const Upload = () => {
                                 <Form.Control type="text" name={`tripPhotoCaption_${index}`} />
                             </Form.Group>
                             <hr/>
+                            {locations.length > 1 && (
+                                    <Button variant="danger" onClick={() => removeLocation(index)}>Remove Location</Button>
+                                )}
                         </div>
                     ))}
 
