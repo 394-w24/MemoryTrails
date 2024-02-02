@@ -29,6 +29,12 @@
     flex-direction: row;
 }
 
+.trip-title, .members {
+    font-weight: bold;
+    font-family: "DM Serif Display", serif;
+
+}
+
 .trip-info {
     flex-basis: 50%;
     max-width: 50%;
@@ -36,6 +42,7 @@
     overflow: auto;
     box-sizing: border-box;
     flex: 1;
+    font-family: "DM Serif Display", serif;
 }
 
 .photos img {

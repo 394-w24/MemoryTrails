@@ -21,8 +21,9 @@
   }
   
   .title {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
+    font-family: "DM Serif Display", serif;
   }
   
  
@@ -40,8 +41,8 @@
     margin-right: 10px;
   }
   
-.link-style {
-    margin: 1rem;
+  .memory-trails-link{
     text-decoration: none;
-    color: black
-  };
+    color: inherit;
+  }
+
