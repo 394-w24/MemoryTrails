@@ -7,6 +7,7 @@ import { writeToDb, getDbData } from "../utilities/firebase";
 import { uploadFileToFirebase} from "../utilities/firebaseStorage"
 // import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
 import AutoComplete from './LocationPicker';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const Upload = () => {
@@ -36,6 +37,8 @@ const Upload = () => {
     const onFormSubmit = async (e) => {
         e.preventDefault();
         handleLocationSelect()
+        //get a uniq id for each trip, 
+        const uniqueId = uuidv4();
     
         const formData = new FormData(e.target);
         console.log("Form data retrieved:", formData);
@@ -68,8 +71,10 @@ const Upload = () => {
             // Retrieve the file input for the current index
             const fileInput = formData.get(`tripPhotos_${index}`);
             console.log("file:", fileInput)
+            
             if (fileInput) {
-                const fileUrl = await uploadFileToFirebase(fileInput, locationName, photoUrls.length);
+                const locationNameParse = location.location.split(',')[0];
+                const fileUrl = await uploadFileToFirebase(fileInput, locationNameParse, uniqueId);
                 photoUrls.push(fileUrl);
             }
             console.log(`Processed location ${index}:`, location);
@@ -88,7 +93,8 @@ const Upload = () => {
         const tripData = {
             name: formDataObj.tripName,
             members: formDataObj.tripMembers.split(',').map(member => member.trim()),
-            locations: await Promise.all(processedLocations)
+            locations: await Promise.all(processedLocations),
+            id: uniqueId
         };
         console.log(tripData)
     
