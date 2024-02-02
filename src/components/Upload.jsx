@@ -8,12 +8,8 @@ import { uploadFileToFirebase} from "../utilities/firebaseStorage"
 // import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
 import AutoComplete from './LocationPicker';
 import { v4 as uuidv4 } from 'uuid';
-<<<<<<< HEAD
-import './Upload.css'; 
-=======
 import Alert from 'react-bootstrap/Alert';
 import "./Upload.css"
->>>>>>> 0ed3de0 (Added confirmation message for successful/unsuccessful trip upload)
 
 
 const Upload = () => {
