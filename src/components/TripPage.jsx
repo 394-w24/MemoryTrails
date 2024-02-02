@@ -36,7 +36,7 @@ const TripPage = () => {
   console.log("trip id:",tripId)
   const [activeLocation, setActiveLocation] = useState(null);
   const tripData = useDbData(`trips/${tripId}/`)[0];
-  console.log(tripData);
+  console.log("tripData:", tripData);
   const position = [tripData?.locations?.[0]?.latitude, tripData?.locations?.[0]?.longitude];
 
 
@@ -60,16 +60,17 @@ const TripPage = () => {
     return(<div></div>)
   }
 
-
-  // console.log("Number of locations:", tripData.locations.length);
+  
+  console.log("trip members:", tripData.members);
   return (
     <div>
      
       <div className="wrap">
         <div className="trip-header">
-          <h2 style={{marginTop:'60px', marginLeft: '25px'}}>{tripData.name}</h2>
-          <div className="members" style={{marginTop:'100px', marginLeft:'-325px'}}>
-            <strong>Members:</strong> {tripData.members.join(", ")}
+          <h2 style={{marginTop:'60px', marginLeft: '25px', fontWeight: '700', fontSize: '75px'}}>{tripData.name}</h2>
+          <div className="members" style={{marginTop:'25px', marginLeft:'25px'}}>
+            <strong>Members:</strong> {tripData.members.length == 1 ? tripData.members[0] : tripData.members.join(", ")}
+            
           </div>
         </div>
         <div className="trip-content">
