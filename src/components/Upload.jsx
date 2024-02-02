@@ -99,6 +99,7 @@ const Upload = () => {
         console.log(tripData)
 
         writeToDb(`trips/${newTripNumber}`, tripData);
+        console.log("status:");
         handleClose();
         setSubmitStatus('Trip added successfully!');
     };

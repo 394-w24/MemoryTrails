@@ -65,8 +65,8 @@ export const getDbData = async (path) => {
   return snapshot.val();
 }
 
-export const writeToDb = (path, value) => {
-  update(ref(database, path), value)
+export const writeToDb = async (path, value) => {
+  await update(ref(database, path), value)
       .then(() => console.log("Successfully written to database.", value))
       .catch((error) => console.log(error));
 }
@@ -74,11 +74,11 @@ export const writeToDb = (path, value) => {
   export const signInWithGoogle = () => {
     signInWithPopup(getAuth(app), new GoogleAuthProvider());
   };
-  
+
   const firebaseSignOut = () => signOut(getAuth(app));
-  
+
   export { firebaseSignOut as signOut };
-  
+
   export const useAuthState = () => {
     const [user, setUser] = useState();
     useEffect(() => onAuthStateChanged(getAuth(app), setUser), []);
