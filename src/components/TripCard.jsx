@@ -8,7 +8,7 @@ import "./TripCard.css";
       <img src={trip.locations[0].photos[0]} className="card-img-top" alt="Trip photo"/>
       <div className="card-body">
         <div className="card-title">
-          <Link to={`/trip/${tripId}`}>
+          <Link to={`/trip/${tripId}`} className="card-trip-name">
             {trip.name}
           </Link>
         </div>
@@ -17,11 +17,6 @@ import "./TripCard.css";
             <div className="card-footer">
               <div> start date: {trip.locations[0].date} </div>
             </div>
-            {/* <div>
-              <Link to={`/trip/${tripId}`} style={{ display: "block", marginTop: "10px" }}>
-                View Trip
-              </Link>
-            </div> */}
           </div>
         )}
       </div>

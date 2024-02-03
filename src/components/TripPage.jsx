@@ -6,19 +6,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
-import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import { useDbData } from "../utilities/firebase";
 
-const customIcon = new L.Icon({
-  iconUrl: icon,
-  iconRetinaUrl: iconRetina,
-  shadowUrl: iconShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
-});
 
 const numberedIcon = (number) => new L.DivIcon({
   className: "custom-icon",
@@ -50,7 +39,7 @@ const TripPage = () => {
   console.log("trip id:",tripId)
   const [activeLocation, setActiveLocation] = useState(null);
   const tripData = useDbData(`trips/${tripId}/`)[0];
-  console.log(tripData);
+  console.log("tripData:", tripData);
   const position = [tripData?.locations?.[0]?.latitude, tripData?.locations?.[0]?.longitude];
 
 
@@ -73,52 +62,57 @@ const TripPage = () => {
     return(<div></div>)
   }
 
-
-  // console.log("Number of locations:", tripData.locations.length);
+  
+  console.log("trip members:", tripData.members);
   return (
     <div>
      
       <div className="wrap">
-        <h2 style={{marginTop:'60px', marginLeft: '25px'}}>{tripData.name}</h2>
-        <div className="members" style={{marginTop:'100px', marginLeft:'-325px'}}>
-          <strong>Members:</strong> {tripData.members.join(", ")}
+        <div className="trip-header">
+          <h2 style={{marginTop:'60px', marginLeft: '25px', fontWeight: '700', fontSize: '75px'}} className="trip-title">{tripData.name}</h2>
+          <div className="members" style={{marginTop:'25px', marginLeft:'25px'}}>
+            <strong>Members:</strong> {tripData.members.length == 1 ? tripData.members[0] : tripData.members.join(", ")}
+            
+          </div>
         </div>
-        <div className="trip-map">
-          <MapContainer
-            center={position}
-            zoom={8}
-            style={{ height: "100%", width: "100%" }}
-          >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            />
-            {tripData.locations.map((location, index) => {
-              // const key = `${location.latitude}-${location.longitude}`;
-              // console.log("location:", location);
-              // console.log("latitude", location.latitude);
-              // console.log("longitude", location.longitude);
-              return (
-                <Marker
-                  key={index}
-                  position={[parseFloat(location.latitude), parseFloat(location.longitude)]}
-                  icon={numberedIcon(index + 1)}
-                  eventHandlers={{
-                    click: () => {
-                      setActiveLocation(index);
-                    },
-                  }}
-                >
-                  <Popup>{location.location}</Popup>
-                </Marker>
-              );
-            })}
-          </MapContainer>
-        </div>
-        <div className="trip-info">
-          {tripData.locations.map((location, index) => (
-            <Location index={index} location={location} />
-          ))}
+        <div className="trip-content">
+          <div className="trip-map">
+            <MapContainer
+              center={position}
+              zoom={8}
+              style={{ height: "100%", width: "100%" }}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              {tripData.locations.map((location, index) => {
+                // const key = `${location.latitude}-${location.longitude}`;
+                // console.log("location:", location);
+                // console.log("latitude", location.latitude);
+                // console.log("longitude", location.longitude);
+                return (
+                  <Marker
+                    key={index}
+                    position={[parseFloat(location.latitude), parseFloat(location.longitude)]}
+                    icon={numberedIcon(index + 1)}
+                    eventHandlers={{
+                      click: () => {
+                        setActiveLocation(index);
+                      },
+                    }}
+                  >
+                    <Popup>{location.location}</Popup>
+                  </Marker>
+                );
+              })}
+            </MapContainer>
+          </div>
+          <div className="trip-info">
+            {tripData.locations.map((location, index) => (
+              <Location index={index} location={location} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

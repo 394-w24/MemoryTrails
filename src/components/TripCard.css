@@ -3,3 +3,24 @@
     height: 15vw;
     object-fit: cover;
 }
+
+.card-trip-name {
+    text-decoration: none;
+    color: inherit;
+    font-size: 20px;
+}
+
+.card-footer {
+    font-family: "Quattrocento", serif;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    margin: 12px;
+    transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
+}
+
+.card:hover {
+    box-shadow: 0 70px 80px 0 rgba(0.4,0.4,0.4,0.6); /* Shadow effect */
+}

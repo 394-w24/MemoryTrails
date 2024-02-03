@@ -8,6 +8,7 @@ import { uploadFileToFirebase} from "../utilities/firebaseStorage"
 // import { getCoordinatesForLocation } from '../utilities/geocodeUtils';
 import AutoComplete from './LocationPicker';
 import { v4 as uuidv4 } from 'uuid';
+import './Upload.css'; 
 
 
 const Upload = () => {
@@ -20,6 +21,11 @@ const Upload = () => {
     const addLocation = () => {
         setLocations([...locations, { location: '', photos: [], caption: '' }]);
     };
+
+    const removeLocation = (indexToRemove) => {
+        setLocations(locations.filter((_, index) => index !== indexToRemove));
+    };
+
     const handleLocationSelect = (index, address, coordinates) => {
         console.log(`Location selected at index ${index}:`, address, coordinates); // Log for debugging
         const updatedLocations = locations.map((location, locIndex) => {
@@ -31,31 +37,31 @@ const Upload = () => {
         setLocations(updatedLocations);
         console.log("Updated locations:", updatedLocations); // Log for debugging
     };
-    
 
-    
+
+
     const onFormSubmit = async (e) => {
         e.preventDefault();
         handleLocationSelect()
-        //get a uniq id for each trip, 
+        //get a uniq id for each trip,
         const uniqueId = uuidv4();
-    
+
         const formData = new FormData(e.target);
         console.log("Form data retrieved:", formData);
         const formDataObj = Object.fromEntries(formData.entries());
         console.log("Form data object:", formDataObj);
-        
+
         const existingTrips = await getDbData('trips');
-        console.log("Existing trips:", existingTrips); 
-    
+        console.log("Existing trips:", existingTrips);
+
         let highestNumber = 0;
         if (existingTrips) {
             highestNumber = Object.keys(existingTrips)
-                .map(key => parseInt(key.match(/\d+/), 10)) 
+                .map(key => parseInt(key.match(/\d+/), 10))
                 .reduce((max, current) => Math.max(max, current), 0);
         }
-    
-        const newTripNumber = (highestNumber + 1).toString().padStart(2, '0'); 
+
+        const newTripNumber = (highestNumber + 1).toString().padStart(2, '0');
         // Process each location
         const processedLocations = locations.map(async (location, index) => {
             console.log("location", location);
@@ -71,7 +77,7 @@ const Upload = () => {
             // Retrieve the file input for the current index
             const fileInput = formData.get(`tripPhotos_${index}`);
             console.log("file:", fileInput)
-            
+
             if (fileInput) {
                 const locationNameParse = location.location.split(',')[0];
                 const fileUrl = await uploadFileToFirebase(fileInput, locationNameParse, uniqueId);
@@ -85,7 +91,7 @@ const Upload = () => {
                 longitude: lng,
                 caption: caption,
                 date: formDataObj.tripStartDate,
-                photos: photoUrls 
+                photos: photoUrls
             };
 
         });
@@ -97,16 +103,17 @@ const Upload = () => {
             id: uniqueId
         };
         console.log(tripData)
-    
+
         writeToDb(`trips/${newTripNumber}`, tripData);
+        console.log("status:");
         handleClose();
         setSubmitStatus('Trip added successfully!');
     };
-    
+
     return (
-    <div>
-        <Button variant="primary" onClick={handleShow}>
-            Add Trip
+    <div className="upload-body">
+        <Button variant="primary" onClick={handleShow} className="upload-button">
+        <span className="upload-button-word">Add Trip</span>
         </Button>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -137,18 +144,23 @@ const Upload = () => {
                             <Form.Group className="mb-3">
                                 <Form.Label>Location</Form.Label>
                                 {/* <Form.Control type="text" name={`tripLocation_${index}`} /> */}
-                                <AutoComplete 
-                                    index={index} 
-                                    onLocationSelect={handleLocationSelect} 
+                                <AutoComplete
+                                    index={index}
+                                    onLocationSelect={handleLocationSelect}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3">
+                                <Form.Label>Choose Images for the location</Form.Label>
                                 <input className="form-control" type="file" name={`tripPhotos_${index}`} id={`formFileMultiple_${index}`}/>
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <Form.Label>Caption</Form.Label>
                                 <Form.Control type="text" name={`tripPhotoCaption_${index}`} />
                             </Form.Group>
+                            <hr/>
+                            {locations.length > 1 && (
+                                    <Button variant="danger" onClick={() => removeLocation(index)}>Remove Location</Button>
+                                )}
                         </div>
                     ))}
 
