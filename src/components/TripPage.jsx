@@ -18,18 +18,21 @@ const numberedIcon = (number) => new L.DivIcon({
   shadowSize: [41, 41],
 });
 
-const Location = ({ location, index  }) => (
+const Location = ({ location, index }) => (
   <div className="location" id={`location-${index}`}>
     <h3>{location.location}</h3>
     <p>{location.date}</p>
-    <p>{location.caption}</p>
     <div className="photos">
       {location.photos.map((photo) => (
-        <img key={photo} src={photo} alt={location.location} />
+        <div key={photo} className="photo-container">
+          <img src={photo} alt={location.location} className="photos-img" />
+          <div className="photo-caption">{location.caption}</div>
+        </div>
       ))}
     </div>
   </div>
 );
+
 
 const TripPage = () => {
   const { tripId } = useParams();
@@ -50,7 +53,6 @@ const TripPage = () => {
       }
     }
   }, [activeLocation, tripData]);
-
 
 
 

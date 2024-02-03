@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
@@ -48,6 +48,28 @@ const MapPage = () => {
       locations[trip.locations[0].latitude + ":" + trip.locations[0].longitude] = [{tripId, trip}]
     }
   })
+
+  //  // State to hold the current zoom level
+  //  const [zoomLevel, setZoomLevel] = useState(4);
+
+  //  // Function to update zoom level based on screen width
+  //  const updateZoomLevel = () => {
+  //    if (window.innerWidth <= 768) { // Example breakpoint for mobile devices
+  //      setZoomLevel(3); // A zoom level more suitable for mobile
+  //    } else {
+  //      setZoomLevel(4); // Default zoom level for desktop
+  //    }
+  //  };
+
+  //    // Effect hook to set zoom level on mount and when window resizes
+  // useEffect(() => {
+  //   updateZoomLevel(); // Set initial zoom
+  //   window.addEventListener('resize', updateZoomLevel); // Adjust zoom on resize
+    
+  //   // Cleanup listener to avoid memory leaks
+  //   return () => window.removeEventListener('resize', updateZoomLevel);
+  // }, []);
+
 
   return (
     <div>

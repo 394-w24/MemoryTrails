@@ -17,6 +17,8 @@
     min-height: 300px;
     box-sizing: border-box;
     flex: 1;
+    padding-top: .5%;
+ 
 }
 
 .trip-header {
@@ -86,6 +88,7 @@
         flex-basis: 100%;
         max-width: 100%; /* Take full width on smaller screens */
         position: static;
+      
     }
 }
 
