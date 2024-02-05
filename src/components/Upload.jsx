@@ -38,8 +38,6 @@ const Upload = () => {
         console.log("Updated locations:", updatedLocations); // Log for debugging
     };
 
-
-
     const onFormSubmit = async (e) => {
         e.preventDefault();
         handleLocationSelect()

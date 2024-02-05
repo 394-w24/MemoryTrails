@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-// import tripData from "../../data/data.json";
 import "./TripPage.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
+import Button from 'react-bootstrap/Button';
 import { useDbData } from "../utilities/firebase";
-
+import AddMemoryForm from './AddMemory'; // Import the new component
 
 const numberedIcon = (number) => new L.DivIcon({
   className: "custom-icon",
@@ -23,8 +23,8 @@ const Location = ({ location, index }) => (
     <h3>{location.location}</h3>
     <p>{location.date}</p>
     <div className="photos">
-      {location.photos.map((photo) => (
-        <div key={photo} className="photo-container">
+      {location.photos.map((photo, photoIndex) => (
+        <div key={photoIndex} className="photo-container">
           <img src={photo} alt={location.location} className="photos-img" />
           <div className="photo-caption">{location.caption}</div>
         </div>
@@ -33,91 +33,67 @@ const Location = ({ location, index }) => (
   </div>
 );
 
-
 const TripPage = () => {
   const { tripId } = useParams();
-  console.log("trip id:",tripId)
   const [activeLocation, setActiveLocation] = useState(null);
   const tripData = useDbData(`trips/${tripId}/`)[0];
-  console.log("tripData:", tripData);
-  const position = [tripData?.locations?.[0]?.latitude, tripData?.locations?.[0]?.longitude];
-
+  const [showAddMemoryModal, setShowAddMemoryModal] = useState(false);
+  
+  const position = tripData?.locations?.[0]
+    ? [tripData.locations[0].latitude, tripData.locations[0].longitude]
+    : [0, 0]; // Default position if no locations
 
   useEffect(() => {
-    console.log(`Active location index: ${activeLocation}`);
     if (tripData && tripData.locations && activeLocation !== null) {
       const locationElement = document.getElementById(`location-${activeLocation}`);
-      console.log(`Scrolling to location ${activeLocation}`, locationElement);
       if (locationElement) {
         locationElement.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   }, [activeLocation, tripData]);
 
-
-
-  console.log(tripData);
-
-  if(tripData === undefined) {
-    return(<div></div>)
+  if (!tripData) {
+    return <div>Loading...</div>;
   }
 
-  
-  console.log("trip members:", tripData.members);
+  const locations = tripData.locations || [];
+
   return (
-    <div>
-     
-      <div className="wrap">
-        <div className="trip-header">
-          <h2 style={{marginTop:'60px', marginLeft: '25px', fontWeight: '700', fontSize: '75px'}} className="trip-title">{tripData.name}</h2>
-          <div className="members" style={{marginTop:'25px', marginLeft:'25px'}}>
-            <strong>Members:</strong> {tripData.members.length == 1 ? tripData.members[0] : tripData.members.join(", ")}
-            
-          </div>
+    <div className="wrap">
+      <div className="trip-header">
+        <div>
+          <h2 className="trip-title">{tripData.name}</h2>
+          <div className="members">Members: {tripData.members.length === 1 ? tripData.members[0] : tripData.members.join(", ")}</div>
         </div>
-        <div className="trip-content">
-          <div className="trip-map">
-            <MapContainer
-              center={position}
-              zoom={8}
-              style={{ height: "100%", width: "100%" }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              {tripData.locations.map((location, index) => {
-                // const key = `${location.latitude}-${location.longitude}`;
-                // console.log("location:", location);
-                // console.log("latitude", location.latitude);
-                // console.log("longitude", location.longitude);
-                return (
-                  <Marker
-                    key={index}
-                    position={[parseFloat(location.latitude), parseFloat(location.longitude)]}
-                    icon={numberedIcon(index + 1)}
-                    eventHandlers={{
-                      click: () => {
-                        setActiveLocation(index);
-                      },
-                    }}
-                  >
-                    <Popup>{location.location}</Popup>
-                  </Marker>
-                );
-              })}
-            </MapContainer>
-          </div>
-          <div className="trip-info">
-            {tripData.locations.map((location, index) => (
-              <Location index={index} location={location} />
+        <Button variant="primary" onClick={() => setShowAddMemoryModal(true)} className="upload-button add-memories-button">
+          <span className="upload-button-word">Add Memories</span>
+        </Button>
+      </div>
+      <div className="trip-content">
+        <div className="trip-map">
+          <MapContainer center={position} zoom={8} style={{ height: "100%", width: "100%" }}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {locations.map((location, index) => (
+              <Marker key={index} position={[location.latitude, location.longitude]} icon={numberedIcon(index + 1)}>
+                <Popup>{location.location}</Popup>
+              </Marker>
             ))}
-          </div>
+          </MapContainer>
+        </div>
+        <div className="trip-info">
+          {locations.map((location, index) => (
+            <Location key={index} index={index} location={location} />
+          ))}
         </div>
       </div>
+      <AddMemoryForm
+        show={showAddMemoryModal}
+        handleClose={() => setShowAddMemoryModal(false)}
+        tripId={tripId}
+        tripData={tripData}
+      />
     </div>
   );
 };
 
 export default TripPage;
-
