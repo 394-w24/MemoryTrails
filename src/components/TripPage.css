@@ -18,7 +18,7 @@
     box-sizing: border-box;
     flex: 1;
     padding-top: .5%;
- 
+
 }
 
 .trip-header {
@@ -92,14 +92,14 @@
     display: block; /* This should already make the image block-level, taking up the full width of its container */
     margin: 0 auto; /* Center the image within its container if it's not as wide */
 }
-  
+
 .upload-button-word {
     font-family: "DM Serif Display", serif;
   }
 
 .photo-caption {
     display: none;
-    position: absolute;
+    position: relative;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -112,16 +112,16 @@
 }
 
 .photo-container:hover .photo-caption {
-    display: block;
+    display: inline-block;
 }
 
-  
+
 
 .custom-icon {
     position: absolute;
     display: inline-block;
   }
-  
+
   .custom-icon span {
     position: absolute;
     top: -8px;
@@ -151,7 +151,7 @@
         flex-basis: 100%;
         max-width: 100%; /* Take full width on smaller screens */
         position: static;
-      
+
     }
 
     .trip-header {
